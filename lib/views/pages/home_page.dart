@@ -46,7 +46,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            'Hi Abu Obaida',
+                            'Hi Raneem',
                             style: Theme.of(context)
                                 .textTheme
                                 .labelLarge!
