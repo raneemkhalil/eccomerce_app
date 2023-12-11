@@ -12,28 +12,12 @@ class ProductDetailsPage extends StatefulWidget {
 }
 
 class _ProductDetailsPageState extends State<ProductDetailsPage> {
-  // int quantity = 1;
-
-  // void _decreaseQuantity() {
-  //   setState(() {
-  //     if (quantity > 1) {
-  //       quantity -= 1;
-  //     }
-  //   });
-  // }
-
-  // void _increaseQuantity() {
-  //   setState(
-  //     () => quantity += 1,
-  //   );
-  // }
 
   @override
   Widget build(BuildContext context) {
     final cubit = BlocProvider.of<ProductDetailsCubit>(context);
     return BlocBuilder<ProductDetailsCubit, ProductDetailsState>(
       bloc: cubit,
-      buildWhen: (previous, current) => current is ProductDetailsLoaded,
       builder: (context, state) {
         if (state is ProductDetailsLoading) {
           return Scaffold(
@@ -67,8 +51,10 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
           );
         } else if (state is ProductDetailsLoaded) {
           return Scaffold(
+            backgroundColor: state.productItem.color,
             extendBodyBehindAppBar: true,
             appBar: AppBar(
+              excludeHeaderSemantics: true,
               backgroundColor: Colors.transparent,
               title: const Center(child: Text('Product Details')),
               actions: [
@@ -86,6 +72,9 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
             ),
             body: Column(
               children: [
+                Container(
+                  height: 40,
+                ),
                 Expanded(
                   child: SingleChildScrollView(
                     child: Stack(children: [
@@ -93,10 +82,9 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                         height: 550,
                         width: 430,
                         alignment: Alignment.center,
-                        decoration: const BoxDecoration(
+                        decoration: BoxDecoration(
                           image: DecorationImage(
-                            image: NetworkImage(
-                                'https://www.seasaltcornwall.com/media/catalog/product/b/_/b_wm23525_29623_2.jpg?optimize=medium&bg-color=255,255,255&fit=bounds&height=795&width=530&canvas=530:795'),
+                            image: NetworkImage(state.productItem.imgUrl),
                             fit: BoxFit.fill,
                           ),
                         ),

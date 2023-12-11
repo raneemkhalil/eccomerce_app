@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+
 class ProductItemModel {
   final String id;
   final String name;
@@ -7,6 +9,7 @@ class ProductItemModel {
   final double price;
   final String category;
   final int quantity;
+  final Color color;
 
   const ProductItemModel({
     required this.id,
@@ -17,7 +20,8 @@ class ProductItemModel {
         'dummy dummy dummy dummy dummy dummy dummy dummy dummy dummy dummy dummy dummy dummy dummy dummy dummy dummy dummy dummy dummy dummy dummy dummy dummy dummy dummy dummy dummy dummy dummy dummy dummy dummy dummy dummy dummy dummy dummy dummy ',
     required this.price,
     required this.category,
-    required this.quantity
+    required this.quantity,
+    this.color = const Color.fromARGB(255, 235, 232, 232),
   });
 
   ProductItemModel copyWith({String? id, String? name, String? imgUrl, bool? isFavorite,
@@ -36,7 +40,7 @@ List<ProductItemModel> dummyProducts = [
         'https://www.seasaltcornwall.com/media/catalog/product/b/_/b_wm23525_29623_2.jpg?optimize=medium&bg-color=255,255,255&fit=bounds&height=795&width=530&canvas=530:795',
     price: 8.1,
     category: 'clothes',
-    quantity: 1
+    quantity: 1,
   ),
   const ProductItemModel(
     id: '2',
