@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:ecommerce/utils/app_routes.dart';
 import 'package:ecommerce/view_models/product_cubit/product_details_cubit.dart';
 import 'package:flutter/material.dart';
@@ -85,7 +86,7 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                         alignment: Alignment.center,
                         decoration: BoxDecoration(
                           image: DecorationImage(
-                            image: NetworkImage(state.productItem.imgUrl),
+                            image: CachedNetworkImageProvider(state.productItem.imgUrl),
                             fit: BoxFit.fill,
                           ),
                         ),
@@ -243,7 +244,7 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                           child: Row(
                             children: [
                               Text(
-                                '\$ ',
+                                '\$',
                                 style: TextStyle(
                                   fontSize: 30,
                                   fontWeight: FontWeight.bold,
@@ -253,7 +254,7 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                               Text(
                                 ' ${(state.productItem.quantityPrice * 1).toStringAsFixed(2)}',
                                 style: const TextStyle(
-                                  fontSize: 30,
+                                  fontSize: 25,
                                   fontWeight: FontWeight.bold,
                                   color: Colors.black,
                                 ),
@@ -265,7 +266,7 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                           borderRadius: BorderRadius.circular(32),
                           child: SizedBox(
                             height: 55,
-                            width: 190,
+                            width: 180,
                             child: ElevatedButton(
                               onPressed: () => Navigator.of(context).pushNamed(AppRoutes.myOrder),
                               style: ElevatedButton.styleFrom(

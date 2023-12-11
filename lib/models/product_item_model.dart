@@ -26,12 +26,31 @@ class ProductItemModel {
     required this.quantityPrice
   });
 
-  ProductItemModel copyWith({String? id, String? name, String? imgUrl, bool? isFavorite,
-   String? description, double? price, String? category, int? quantity, double? quantityPrice}){
-    return ProductItemModel(id: id ?? this.id, name: name ?? this.name, imgUrl: imgUrl ?? this.imgUrl,
-      isFavorite: isFavorite ?? this.isFavorite, description: description ?? this.description, price: price ?? this.price,
-      category: category ?? this.category, quantity: quantity ?? this.quantity, quantityPrice: quantityPrice ?? this.price);
-   }
+  ProductItemModel copyWith({
+    String? id,
+    String? name,
+    String? imgUrl,
+    bool? isFavorite,
+    String? description,
+    double? price,
+    double? quantityPrice,
+    String? category,
+    int? quantity,
+    Color? color,
+  }) {
+    return ProductItemModel(
+      id: id ?? this.id,
+      name: name ?? this.name,
+      imgUrl: imgUrl ?? this.imgUrl,
+      isFavorite: isFavorite ?? this.isFavorite,
+      description: description ?? this.description,
+      price: price ?? this.price,
+      quantityPrice: quantityPrice ?? this.price,
+      category: category ?? this.category,
+      quantity: quantity ?? this.quantity,
+      color: color ?? this.color,
+    );
+  }
 }
 
 List<ProductItemModel> dummyProducts = [

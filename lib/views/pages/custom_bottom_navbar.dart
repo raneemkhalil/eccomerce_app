@@ -115,7 +115,7 @@ class _CustomBottomNavbarState extends State<CustomBottomNavbar> {
         actions: [
           if(currentIndex == 0) ...[
             IconButton(
-            onPressed: () => Navigator.of(context, rootNavigator: true).pushNamed(AppRoutes.searchPage),
+            onPressed: () => Navigator.of(context).pushNamed(AppRoutes.searchPage),
             icon: const Icon(Icons.search),
             ),
             IconButton(

@@ -27,7 +27,7 @@ class CategoryTabView extends StatelessWidget {
           );
         }
         else {
-          return const Text('empty');
+          return const SizedBox.shrink();
         }
       }
     );
