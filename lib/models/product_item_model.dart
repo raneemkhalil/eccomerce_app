@@ -7,6 +7,7 @@ class ProductItemModel {
   final bool isFavorite;
   final String description;
   final double price;
+  final double quantityPrice;
   final String category;
   final int quantity;
   final Color color;
@@ -22,13 +23,14 @@ class ProductItemModel {
     required this.category,
     required this.quantity,
     this.color = const Color.fromARGB(255, 235, 232, 232),
+    required this.quantityPrice
   });
 
   ProductItemModel copyWith({String? id, String? name, String? imgUrl, bool? isFavorite,
-   String? description, double? price, String? category, int? quantity}){
+   String? description, double? price, String? category, int? quantity, double? quantityPrice}){
     return ProductItemModel(id: id ?? this.id, name: name ?? this.name, imgUrl: imgUrl ?? this.imgUrl,
       isFavorite: isFavorite ?? this.isFavorite, description: description ?? this.description, price: price ?? this.price,
-      category: category ?? this.category, quantity: quantity ?? this.quantity);
+      category: category ?? this.category, quantity: quantity ?? this.quantity, quantityPrice: quantityPrice ?? this.price);
    }
 }
 
@@ -41,6 +43,7 @@ List<ProductItemModel> dummyProducts = [
     price: 8.1,
     category: 'clothes',
     quantity: 1,
+    quantityPrice: 8.1,
   ),
   const ProductItemModel(
     id: '2',
@@ -49,7 +52,8 @@ List<ProductItemModel> dummyProducts = [
         'https://www.seasaltcornwall.com/media/catalog/product/b/_/b_wm31151_10729_2.jpg?optimize=medium&bg-color=255,255,255&fit=bounds&height=795&width=530&canvas=530:795',
     price: 8.2,
     category: 'clothes',
-    quantity: 1
+    quantity: 1,
+    quantityPrice: 8.2
   ),
   const ProductItemModel(
     id: '3',
@@ -58,8 +62,8 @@ List<ProductItemModel> dummyProducts = [
         'https://www.seasaltcornwall.com/media/catalog/product/b/-/b-wm31365-31866_2_4.jpg?optimize=medium&bg-color=255,255,255&fit=bounds&height=795&width=530&canvas=530:795',
     price: 8.3,
     category: 'clothes',
-    quantity: 1
-
+    quantity: 1,
+    quantityPrice: 8.3
   ),
   const ProductItemModel(
     id: '4',
@@ -68,7 +72,8 @@ List<ProductItemModel> dummyProducts = [
         'https://www.seasaltcornwall.com/media/catalog/product/b/-/b-wm21498-14255_replace_2_22.jpg?optimize=medium&bg-color=255,255,255&fit=bounds&height=795&width=530&canvas=530:795',
     price: 8.4,
     category: 'clothes',
-    quantity: 1
+    quantity: 1,
+    quantityPrice: 8.4
   ),
   const ProductItemModel(
     id: '5',
@@ -77,7 +82,8 @@ List<ProductItemModel> dummyProducts = [
         'https://www.seasaltcornwall.com/media/catalog/product/b/_/b_wm31098_29875_2.jpg?optimize=medium&bg-color=255,255,255&fit=bounds&height=795&width=530&canvas=530:795',
     price: 8.5,
     category: 'clothes',
-    quantity: 1
+    quantity: 1,
+    quantityPrice: 8.5
   ),
   const ProductItemModel(
     id: '6',
@@ -86,6 +92,7 @@ List<ProductItemModel> dummyProducts = [
         'https://www.seasaltcornwall.com/media/catalog/product/b/_/b_wm31313_29627_2.jpg?optimize=medium&bg-color=255,255,255&fit=bounds&height=795&width=530&canvas=530:795',
     price: 8.6,
     category: 'clothes',
-    quantity: 1
+    quantity: 1,
+    quantityPrice: 8.6
   ),
 ];

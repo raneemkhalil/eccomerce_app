@@ -7,10 +7,12 @@ class ProductDetailsCubit extends Cubit<ProductDetailsState> {
   ProductDetailsCubit() : super(const ProductDetailsInitial());
   void getProductDetails(int index) {
     emit(const ProductDetailsLoading());
+    int quantity = 1;
+    dummyProducts[index] = dummyProducts[index].copyWith(quantity: quantity);
     Future.delayed(const Duration(seconds: 2), () {
       emit(
         ProductDetailsLoaded(
-          productItem: dummyProducts[index],
+          productItem: dummyProducts[index], 
         ),
       );
     });
@@ -20,17 +22,16 @@ class ProductDetailsCubit extends Cubit<ProductDetailsState> {
     int quantity = dummyProducts[index].quantity + 1;
     double price = dummyProducts[index].price * quantity;
 
-    dummyProducts[index] = dummyProducts[index].copyWith(quantity: quantity, price: price);
+    dummyProducts[index] = dummyProducts[index].copyWith(quantity: quantity, quantityPrice: price);
     emit(ProductDetailsLoaded(productItem: dummyProducts[index]));
   }
 
   void decrement(int index) {
-    int quantity = dummyProducts[index].quantity;
-    double price = dummyProducts[index].price / quantity;
-    quantity = quantity - 1;
+    int quantity = dummyProducts[index].quantity - 1;
+    double price = dummyProducts[index].price * quantity;
 
     if (quantity >= 1) {
-      dummyProducts[index] = dummyProducts[index].copyWith(quantity: quantity, price: price);
+      dummyProducts[index] = dummyProducts[index].copyWith(quantity: quantity, quantityPrice: price);
       emit(ProductDetailsLoaded(productItem: dummyProducts[index]));
     }
   }

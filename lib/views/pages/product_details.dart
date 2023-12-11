@@ -1,3 +1,4 @@
+import 'package:ecommerce/utils/app_routes.dart';
 import 'package:ecommerce/view_models/product_cubit/product_details_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -250,7 +251,7 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                                 ),
                               ),
                               Text(
-                                ' ${(state.productItem.price * 1).toStringAsFixed(2)}',
+                                ' ${(state.productItem.quantityPrice * 1).toStringAsFixed(2)}',
                                 style: const TextStyle(
                                   fontSize: 30,
                                   fontWeight: FontWeight.bold,
@@ -266,7 +267,7 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                             height: 55,
                             width: 190,
                             child: ElevatedButton(
-                              onPressed: () {},
+                              onPressed: () => Navigator.of(context).pushNamed(AppRoutes.myOrder),
                               style: ElevatedButton.styleFrom(
                                 backgroundColor: Theme.of(context).primaryColor,
                                 foregroundColor: Colors.white,
