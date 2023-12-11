@@ -16,15 +16,22 @@ class ProductDetailsCubit extends Cubit<ProductDetailsState> {
     });
   }
 
-  void increment() => emit(
-        ProductDetailsState(quantity: state.quantity + 1),
-      );
+  void increment(int index){
+    int quantity = dummyProducts[index].quantity + 1;
+    double price = dummyProducts[index].price * quantity;
 
-  void decrement() {
-    if (state.quantity > 1) {
-      emit(
-        ProductDetailsState(quantity: state.quantity - 1),
-      );
+    dummyProducts[index] = dummyProducts[index].copyWith(quantity: quantity, price: price);
+    emit(ProductDetailsLoaded(productItem: dummyProducts[index]));
+  }
+
+  void decrement(int index) {
+    int quantity = dummyProducts[index].quantity;
+    double price = dummyProducts[index].price / quantity;
+    quantity = quantity - 1;
+
+    if (quantity >= 1) {
+      dummyProducts[index] = dummyProducts[index].copyWith(quantity: quantity, price: price);
+      emit(ProductDetailsLoaded(productItem: dummyProducts[index]));
     }
   }
 }

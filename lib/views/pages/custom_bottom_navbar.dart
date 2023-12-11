@@ -1,3 +1,4 @@
+import 'package:ecommerce/utils/app_routes.dart';
 import 'package:ecommerce/view_models/home_cubit/home_cubit.dart';
 import 'package:ecommerce/views/pages/cart_page.dart';
 import 'package:ecommerce/views/pages/favorites_page.dart';
@@ -17,11 +18,17 @@ class CustomBottomNavbar extends StatefulWidget {
 
 class _CustomBottomNavbarState extends State<CustomBottomNavbar> {
   late final PersistentTabController _controller;
+  int currentIndex = 0;
 
   @override
   void initState() {
     super.initState();
     _controller = PersistentTabController();
+    _controller.addListener(() {
+      setState(() {
+        currentIndex = _controller.index;
+      });
+    });
   }
 
   List<Widget> _buildScreens() {
@@ -71,28 +78,87 @@ class _CustomBottomNavbarState extends State<CustomBottomNavbar> {
 
   @override
   Widget build(BuildContext context) {
-    return PersistentTabView(
-      context,
-      controller: _controller,
-      screens: _buildScreens(),
-      items: _navBarsItems(),
-      confineInSafeArea: true,
-      decoration: NavBarDecoration(
-        borderRadius: BorderRadius.circular(10.0),
-        colorBehindNavBar: Colors.white,
+    return Scaffold(
+      appBar: AppBar(
+        centerTitle: false,
+        leading: const Padding(
+          padding: EdgeInsetsDirectional.only(start:12.0),
+          child: CircleAvatar(
+            backgroundImage: NetworkImage(
+               'https://www.shorouknews.com/uploadedimages/Other/original/2023-11-2018_46_53.119381-qdffe-980x980.jpg'
+            )
+          ),
+        ),
+        title: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              'Hi Raneem',
+              style: Theme.of(context)
+                  .textTheme
+                  .labelLarge!
+                  .copyWith(
+                    fontWeight: FontWeight.w600,
+                  ),
+            ),
+            Text(
+              'Let\'s go shopping',
+              style: Theme.of(context)
+                  .textTheme
+                  .labelMedium!
+                  .copyWith(
+                    color: Colors.grey,
+                  ),
+            ),
+          ],
+        ),
+        actions: [
+          if(currentIndex == 0) ...[
+            IconButton(
+            onPressed: () => Navigator.of(context, rootNavigator: true).pushNamed(AppRoutes.searchPage),
+            icon: const Icon(Icons.search),
+            ),
+            IconButton(
+              onPressed: () {},
+              icon: const Icon(Icons.notifications_none),
+            )
+          ],
+          if(currentIndex == 1)
+            Padding(
+              padding: const EdgeInsets.only(right: 10.0),
+              child: TextButton.icon(
+                icon: const Icon(Icons.shopping_bag),
+                label: const Text("My Orders"),
+                onPressed: (){
+                  Navigator.of(context).pushNamed(AppRoutes.myOrder);
+                },
+              ),
+            )
+        ],
       ),
-      popAllScreensOnTapOfSelectedTab: true,
-      popActionScreens: PopActionScreensType.all,
-      itemAnimationProperties: const ItemAnimationProperties(
-        duration: Duration(milliseconds: 200),
-        curve: Curves.ease,
+      body: PersistentTabView(
+        context,
+        controller: _controller,
+        screens: _buildScreens(),
+        items: _navBarsItems(),
+        confineInSafeArea: true,
+        decoration: NavBarDecoration(
+          borderRadius: BorderRadius.circular(10.0),
+          colorBehindNavBar: Colors.white,
+        ),
+        popAllScreensOnTapOfSelectedTab: true,
+        popActionScreens: PopActionScreensType.all,
+        itemAnimationProperties: const ItemAnimationProperties(
+          duration: Duration(milliseconds: 200),
+          curve: Curves.ease,
+        ),
+        screenTransitionAnimation: const ScreenTransitionAnimation(
+          animateTabTransition: true,
+          curve: Curves.ease,
+          duration: Duration(milliseconds: 200),
+        ),
+        navBarStyle: NavBarStyle.style6,
       ),
-      screenTransitionAnimation: const ScreenTransitionAnimation(
-        animateTabTransition: true,
-        curve: Curves.ease,
-        duration: Duration(milliseconds: 200),
-      ),
-      navBarStyle: NavBarStyle.style6,
     );
   }
 }

@@ -1,6 +1,7 @@
 import 'package:ecommerce/utils/app_routes.dart';
 import 'package:ecommerce/view_models/product_cubit/product_details_cubit.dart';
 import 'package:ecommerce/views/pages/custom_bottom_navbar.dart';
+import 'package:ecommerce/views/pages/my_order.dart';
 import 'package:ecommerce/views/pages/product_details.dart';
 import 'package:ecommerce/views/pages/search_page.dart';
 import 'package:flutter/material.dart';
@@ -19,7 +20,7 @@ class AppRouter {
               cubit.getProductDetails(index);
               return cubit;
             },
-            child: const ProductDetailsPage(),
+            child: ProductDetailsPage(index: index,),
           ),
           settings: settings,
         );
@@ -32,6 +33,12 @@ class AppRouter {
       case AppRoutes.searchPage:
         return MaterialPageRoute(
           builder: (_) => const SearchPage(),
+          settings: settings,
+        );
+      
+      case AppRoutes.myOrder:
+        return MaterialPageRoute(
+          builder: (_) => const MyOrderPage(),
           settings: settings,
         );
       default:

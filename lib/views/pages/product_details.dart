@@ -4,34 +4,36 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:readmore/readmore.dart';
 
 class ProductDetailsPage extends StatefulWidget {
-  const ProductDetailsPage({super.key});
+  final int index;
+  const ProductDetailsPage({super.key, required this.index});
 
   @override
   State<ProductDetailsPage> createState() => _ProductDetailsPageState();
 }
 
 class _ProductDetailsPageState extends State<ProductDetailsPage> {
-  int quantity = 1;
+  // int quantity = 1;
 
-  void _decreaseQuantity() {
-    setState(() {
-      if (quantity > 1) {
-        quantity -= 1;
-      }
-    });
-  }
+  // void _decreaseQuantity() {
+  //   setState(() {
+  //     if (quantity > 1) {
+  //       quantity -= 1;
+  //     }
+  //   });
+  // }
 
-  void _increaseQuantity() {
-    setState(
-      () => quantity += 1,
-    );
-  }
+  // void _increaseQuantity() {
+  //   setState(
+  //     () => quantity += 1,
+  //   );
+  // }
 
   @override
   Widget build(BuildContext context) {
     final cubit = BlocProvider.of<ProductDetailsCubit>(context);
     return BlocBuilder<ProductDetailsCubit, ProductDetailsState>(
       bloc: cubit,
+      buildWhen: (previous, current) => current is ProductDetailsLoaded,
       builder: (context, state) {
         if (state is ProductDetailsLoading) {
           return Scaffold(
@@ -102,7 +104,9 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                       Padding(
                         padding: const EdgeInsets.only(top: 520),
                         child: ClipRRect(
-                          borderRadius: const BorderRadius.only(topLeft: Radius.circular(40), topRight: Radius.circular(40)),
+                          borderRadius: const BorderRadius.only(
+                              topLeft: Radius.circular(40),
+                              topRight: Radius.circular(40)),
                           child: Container(
                             width: 430,
                             color: Colors.white,
@@ -148,18 +152,23 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                                         child: Row(
                                           children: [
                                             IconButton(
-                                              onPressed: _decreaseQuantity,
-                                              icon: const Icon(Icons.remove),
+                                              onPressed: () {
+                                                cubit.decrement(widget.index);
+                                              },
+                                              icon:
+                                                  const Icon(Icons.remove),
                                             ),
                                             const SizedBox(
                                               width: 4.0,
                                             ),
-                                            Text('$quantity'),
+                                            Text(state.productItem.quantity.toString()),
                                             const SizedBox(
                                               width: 4.0,
                                             ),
                                             IconButton(
-                                              onPressed: _increaseQuantity,
+                                              onPressed: () {
+                                                cubit.increment(widget.index);
+                                              },
                                               icon: const Icon(Icons.add),
                                             ),
                                           ],
@@ -253,7 +262,7 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                                 ),
                               ),
                               Text(
-                                ' ${(state.productItem.price * quantity).toStringAsFixed(2)}',
+                                ' ${(state.productItem.price * 1).toStringAsFixed(2)}',
                                 style: const TextStyle(
                                   fontSize: 30,
                                   fontWeight: FontWeight.bold,
@@ -278,7 +287,8 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                                 ),
                               ),
                               child: const Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceAround,
                                 children: [
                                   Icon(Icons.shopping_bag_outlined),
                                   Text('Add to cart'),
