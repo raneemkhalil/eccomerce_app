@@ -56,9 +56,6 @@ class ProductItem extends StatelessWidget {
                       else if (cubit is HomeCubit) {
                         cubit.changeFavorite(productItem.id);
                       }
-                      else {
-                        cubit.close();
-                      }
                     },
                     icon: productItem.isFavorite ? const Icon(Icons.favorite) : const Icon(Icons.favorite_border),
                   ),
