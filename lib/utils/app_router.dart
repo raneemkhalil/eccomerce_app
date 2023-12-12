@@ -1,6 +1,8 @@
 import 'package:ecommerce/utils/app_routes.dart';
+import 'package:ecommerce/view_models/cart_cubit/cart_cubit.dart';
 import 'package:ecommerce/view_models/product_cubit/product_details_cubit.dart';
 import 'package:ecommerce/view_models/search_cubit/search_cubit.dart';
+import 'package:ecommerce/views/pages/cart_page.dart';
 import 'package:ecommerce/views/pages/custom_bottom_navbar.dart';
 import 'package:ecommerce/views/pages/my_order.dart';
 import 'package:ecommerce/views/pages/product_details.dart';
@@ -41,6 +43,19 @@ class AppRouter {
               return cubit;
             },
             child: const SearchPage(),
+          ),
+          settings: settings,
+        );
+      
+      case AppRoutes.myCart:
+        return MaterialPageRoute(
+          builder: (_) => BlocProvider(
+            create: (_){
+              final cubit = CartCubit();
+              cubit.getCartItems();
+              return cubit;
+            },
+            child: const CartPage(),
           ),
           settings: settings,
         );

@@ -1,4 +1,7 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:ecommerce/utils/app_routes.dart';
+import 'package:ecommerce/view_models/cart_cubit/cart_cubit.dart';
+import 'package:ecommerce/view_models/favorite_cubit/favorite_cubit.dart';
 import 'package:ecommerce/view_models/home_cubit/home_cubit.dart';
 import 'package:ecommerce/views/pages/cart_page.dart';
 import 'package:ecommerce/views/pages/favorites_page.dart';
@@ -18,17 +21,11 @@ class CustomBottomNavbar extends StatefulWidget {
 
 class _CustomBottomNavbarState extends State<CustomBottomNavbar> {
   late final PersistentTabController _controller;
-  int currentIndex = 0;
 
   @override
   void initState() {
     super.initState();
     _controller = PersistentTabController();
-    _controller.addListener(() {
-      setState(() {
-        currentIndex = _controller.index;
-      });
-    });
   }
 
   List<Widget> _buildScreens() {
@@ -41,10 +38,24 @@ class _CustomBottomNavbarState extends State<CustomBottomNavbar> {
         },
         child: const HomePage(),
       ),
-      const CartPage(),
-      const FavoritesPage(),
+      BlocProvider(
+        create: (context) {
+          final cubit = CartCubit();
+          cubit.getCartItems();
+          return cubit;
+        },
+        child: const CartPage(),
+      ),
+      BlocProvider(
+        create: (context){
+          final cubit = FavoriteCubit();
+          cubit.getFavoriteItems();
+          return cubit;
+        },
+        child: const FavoritePage(),
+      ),
       const ProfilePage(),
-    ];
+    ]; 
   }
 
   List<PersistentBottomNavBarItem> _navBarsItems() {
@@ -82,11 +93,11 @@ class _CustomBottomNavbarState extends State<CustomBottomNavbar> {
       appBar: AppBar(
         centerTitle: false,
         leading: const Padding(
-          padding: EdgeInsetsDirectional.only(start:12.0),
+          padding: EdgeInsetsDirectional.only(start: 8.0),
           child: CircleAvatar(
-            backgroundImage: NetworkImage(
-               'https://www.shorouknews.com/uploadedimages/Other/original/2023-11-2018_46_53.119381-qdffe-980x980.jpg'
-            )
+            radius: 30,
+            backgroundImage: CachedNetworkImageProvider(
+                'https://cdn.vectorstock.com/i/preview-2x/15/40/blank-profile-picture-image-holder-with-a-crown-vector-42411540.webp'),
           ),
         ),
         title: Column(
@@ -94,46 +105,49 @@ class _CustomBottomNavbarState extends State<CustomBottomNavbar> {
           children: [
             Text(
               'Hi Raneem',
-              style: Theme.of(context)
-                  .textTheme
-                  .labelLarge!
-                  .copyWith(
+              style: Theme.of(context).textTheme.labelLarge!.copyWith(
                     fontWeight: FontWeight.w600,
                   ),
             ),
             Text(
               'Let\'s go shopping',
-              style: Theme.of(context)
-                  .textTheme
-                  .labelMedium!
-                  .copyWith(
+              style: Theme.of(context).textTheme.labelMedium!.copyWith(
                     color: Colors.grey,
                   ),
             ),
           ],
         ),
         actions: [
-          if(currentIndex == 0) ...[
+          if (_controller.index == 0) ...[
             IconButton(
-            onPressed: () => Navigator.of(context).pushNamed(AppRoutes.searchPage),
-            icon: const Icon(Icons.search),
+              onPressed: () {
+                Navigator.of(context, rootNavigator: true).pushNamed(
+                  AppRoutes.searchPage,
+                );
+              },
+              icon: const Icon(Icons.search),
             ),
             IconButton(
               onPressed: () {},
               icon: const Icon(Icons.notifications_none),
             )
           ],
-          if(currentIndex == 1)
-            Padding(
-              padding: const EdgeInsets.only(right: 10.0),
-              child: TextButton.icon(
-                icon: const Icon(Icons.shopping_bag),
-                label: const Text("My Orders"),
-                onPressed: (){
-                  Navigator.of(context).pushNamed(AppRoutes.myOrder);
-                },
-              ),
-            )
+          if (_controller.index == 1)
+            TextButton.icon(
+              icon: const Icon(Icons.shopping_bag),
+              label: const Text('My Oreders'),
+              onPressed: () {
+                Navigator.of(context).pushNamed(AppRoutes.myOrder);
+              },
+            ),
+          if (_controller.index == 2)
+            TextButton.icon(
+              icon: const Icon(Icons.notifications_active_outlined),
+              label: const Text(''),
+              onPressed: () {
+                Navigator.of(context).pushNamed(AppRoutes.myFavorites);
+              },
+            ),
         ],
       ),
       body: PersistentTabView(
@@ -158,6 +172,12 @@ class _CustomBottomNavbarState extends State<CustomBottomNavbar> {
           duration: Duration(milliseconds: 200),
         ),
         navBarStyle: NavBarStyle.style6,
+        onItemSelected: (value){
+          setState(() {
+            _controller.index = value;
+          });
+        },
+        stateManagement: false,
       ),
     );
   }

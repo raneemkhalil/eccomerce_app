@@ -1,11 +1,15 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:ecommerce/models/product_item_model.dart';
+import 'package:ecommerce/utils/colors_app.dart';
+import 'package:ecommerce/view_models/favorite_cubit/favorite_cubit.dart';
+import 'package:ecommerce/view_models/home_cubit/home_cubit.dart';
 import 'package:flutter/material.dart';
 
 class ProductItem extends StatelessWidget {
   final ProductItemModel productItem;
-
-  const ProductItem({super.key, required this.productItem});
+  final cubit;
+  const ProductItem(
+      {super.key, required this.productItem, required this.cubit});
 
   @override
   Widget build(BuildContext context) {
@@ -20,11 +24,11 @@ class ProductItem extends StatelessWidget {
                 borderRadius: BorderRadius.circular(16.0),
                 color: Colors.grey.shade200,
               ),
-              child: Padding(
-                padding: const EdgeInsets.all(10.0),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(20),
                 child: CachedNetworkImage(
                   imageUrl: productItem.imgUrl,
-                  fit: BoxFit.contain,
+                  fit: BoxFit.fitWidth,
                   placeholder: (context, url) => const Center(
                     child: CircularProgressIndicator.adaptive(),
                   ),
@@ -33,6 +37,8 @@ class ProductItem extends StatelessWidget {
               ),
             ),
             Positioned(
+              width: 30,
+              height: 30,
               top: 8.0,
               right: 8.0,
               child: DecoratedBox(
@@ -41,8 +47,19 @@ class ProductItem extends StatelessWidget {
                   color: Colors.white60,
                 ),
                 child: IconButton(
-                  onPressed: () {},
-                  icon: const Icon(Icons.favorite_border),
+                  color: AppColors.primaryColor,
+                  onPressed: () {
+                    if (cubit is FavoriteCubit) {
+                      cubit.removeFromFavorite(productItem.id);
+                    }
+                    else if (cubit is HomeCubit) {
+                      cubit.changeFavorite(productItem.id);
+                    }
+                    else {
+                      cubit.close();
+                    }
+                  },
+                  icon: productItem.isFavorite ? const Icon(Icons.favorite) : const Icon(Icons.favorite_border),
                 ),
               ),
             ),

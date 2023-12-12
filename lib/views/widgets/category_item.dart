@@ -21,7 +21,7 @@ class CategoryItem extends StatelessWidget {
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(16.0),
                   child: CachedNetworkImage(
-                    imageUrl: categoryItem.imageUrl,
+                    imageUrl: categoryItem.imgUrl,
                     fit: BoxFit.fitWidth,
                     placeholder: (context, url) => const Center(
                       child: CircularProgressIndicator.adaptive(),
@@ -45,7 +45,7 @@ class CategoryItem extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    '${categoryItem.count} Products',
+                    '${categoryItem.number} Products',
                     style: Theme.of(context).textTheme.labelSmall!.copyWith(
                       color: Colors.black,
                     ),

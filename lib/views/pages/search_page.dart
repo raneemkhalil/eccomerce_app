@@ -1,6 +1,6 @@
 import 'package:ecommerce/models/last_searches_model.dart';
 import 'package:ecommerce/view_models/search_cubit/search_cubit.dart';
-import 'package:ecommerce/views/widgets/list_populer_search.dart';
+import 'package:ecommerce/views/widgets/populer_search_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -127,7 +127,7 @@ class SearchPage extends StatelessWidget {
                       shrinkWrap: true,
                       itemCount: state.listPopulerSearch.length,
                       itemBuilder: (context, index) =>
-                          ListPopulerSearch(index: index, cubit: cubit)),
+                          PopulerSearchItem(index: index, cubit: cubit)),
                   ],
                 ),
               ),

@@ -15,6 +15,8 @@ class ProductDetailsPage extends StatefulWidget {
 
 class _ProductDetailsPageState extends State<ProductDetailsPage> {
 
+  late ProductDetailsCubit cubit;
+
   @override
   Widget build(BuildContext context) {
     final cubit = BlocProvider.of<ProductDetailsCubit>(context);
@@ -29,7 +31,9 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
               title: const Center(child: Text('Product Details')),
               actions: [
                 IconButton(
-                  onPressed: () {},
+                  onPressed: () {
+
+                  },
                   icon: Icon(
                     Icons.favorite_border,
                     color: Theme.of(context).primaryColor,
@@ -61,9 +65,11 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
               title: const Center(child: Text('Product Details')),
               actions: [
                 IconButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    cubit.changeFavorite(state.productItem.id);
+                  },
                   icon: Icon(
-                    Icons.favorite_border,
+                    state.productItem.isFavorite ? Icons.favorite : Icons.favorite_border,
                     color: Theme.of(context).primaryColor,
                   ),
                 ),

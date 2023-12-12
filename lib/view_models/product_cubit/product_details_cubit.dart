@@ -35,4 +35,10 @@ class ProductDetailsCubit extends Cubit<ProductDetailsState> {
       emit(ProductDetailsLoaded(productItem: dummyProducts[index]));
     }
   }
+
+  void changeFavorite(String prodcutId){
+    int index = dummyProducts.indexWhere((element) => element.id == prodcutId,);
+    dummyProducts[index] = dummyProducts[index].copyWith(isFavorite: !dummyProducts[index].isFavorite);
+    emit(ProductDetailsLoaded(productItem: dummyProducts[index]));
+  }
 }

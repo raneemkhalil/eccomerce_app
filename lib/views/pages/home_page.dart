@@ -30,7 +30,6 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
           ),
           child: Column(
             children: [
-              const SizedBox(height: 24),
               TabBar(
                 controller: _tabController,
                 unselectedLabelColor: AppColors.grey,

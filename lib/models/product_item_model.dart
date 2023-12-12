@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+enum Size { S, M, L, XL }
+
 class ProductItemModel {
   final String id;
   final String name;
@@ -11,19 +13,23 @@ class ProductItemModel {
   final String category;
   final int quantity;
   final Color color;
+  final Size? size;
+  final bool isAddedToCart;
 
-  const ProductItemModel({
+ const ProductItemModel({
     required this.id,
     required this.name,
     required this.imgUrl,
     this.isFavorite = false,
     this.description =
-        'dummy dummy dummy dummy dummy dummy dummy dummy dummy dummy dummy dummy dummy dummy dummy dummy dummy dummy dummy dummy dummy dummy dummy dummy dummy dummy dummy dummy dummy dummy dummy dummy dummy dummy dummy dummy dummy dummy dummy dummy ',
+        'dummy dummy dummy dummy dummy dummy dummy dummy dummy dummy dummy dummy dummy dummy dummy dummy dummy dummy dummy dummy dummy dummy dummy dummy dummy dummy dummy dummy dummy dummy dummy dummy dummy dummy dummy dummy dummy dummy dummy dummy dummy dummy dummy dummy dummy dummy dummy dummy dummy dummy dummy dummy dummy dummy dummy dummy dummy dummy dummy dummy dummy dummy dummy dummy dummy dummy dummy dummy dummy dummy dummy dummy dummy dummy dummy dummy dummy dummy dummy dummy dummy dummy dummy dummy dummy dummy dummy dummy dummy dummy dummy dummy dummy dummy dummy dummy dummy dummy dummy dummy dummy dummy dummy  ',
     required this.price,
+    required this.quantityPrice,
     required this.category,
     required this.quantity,
     this.color = const Color.fromARGB(255, 235, 232, 232),
-    required this.quantityPrice
+    this.size,
+    this.isAddedToCart=false,
   });
 
   ProductItemModel copyWith({
@@ -37,6 +43,8 @@ class ProductItemModel {
     String? category,
     int? quantity,
     Color? color,
+    Size? size,
+    bool? isAddedToCart,
   }) {
     return ProductItemModel(
       id: id ?? this.id,
@@ -45,10 +53,12 @@ class ProductItemModel {
       isFavorite: isFavorite ?? this.isFavorite,
       description: description ?? this.description,
       price: price ?? this.price,
-      quantityPrice: quantityPrice ?? this.price,
+      quantityPrice: quantityPrice ?? this.quantityPrice,
       category: category ?? this.category,
       quantity: quantity ?? this.quantity,
       color: color ?? this.color,
+      size: size ?? this.size,
+      isAddedToCart: isAddedToCart ?? this.isAddedToCart,
     );
   }
 }
@@ -61,8 +71,10 @@ List<ProductItemModel> dummyProducts = [
         'https://www.seasaltcornwall.com/media/catalog/product/b/_/b_wm23525_29623_2.jpg?optimize=medium&bg-color=255,255,255&fit=bounds&height=795&width=530&canvas=530:795',
     price: 8.1,
     category: 'clothes',
-    quantity: 1,
-    quantityPrice: 8.1,
+    isAddedToCart: true,
+    quantity: 2,
+    size: Size.L,
+    quantityPrice:8.1,
   ),
   const ProductItemModel(
     id: '2',
@@ -71,8 +83,10 @@ List<ProductItemModel> dummyProducts = [
         'https://www.seasaltcornwall.com/media/catalog/product/b/_/b_wm31151_10729_2.jpg?optimize=medium&bg-color=255,255,255&fit=bounds&height=795&width=530&canvas=530:795',
     price: 8.2,
     category: 'clothes',
-    quantity: 1,
-    quantityPrice: 8.2
+    isAddedToCart: true,
+    quantity: 2,
+    size: Size.XL,
+    quantityPrice:8.2,
   ),
   const ProductItemModel(
     id: '3',
@@ -81,8 +95,10 @@ List<ProductItemModel> dummyProducts = [
         'https://www.seasaltcornwall.com/media/catalog/product/b/-/b-wm31365-31866_2_4.jpg?optimize=medium&bg-color=255,255,255&fit=bounds&height=795&width=530&canvas=530:795',
     price: 8.3,
     category: 'clothes',
-    quantity: 1,
-    quantityPrice: 8.3
+    isAddedToCart: true,
+    quantity: 3,
+    size: Size.S,
+    quantityPrice:8.3,
   ),
   const ProductItemModel(
     id: '4',
@@ -91,8 +107,9 @@ List<ProductItemModel> dummyProducts = [
         'https://www.seasaltcornwall.com/media/catalog/product/b/-/b-wm21498-14255_replace_2_22.jpg?optimize=medium&bg-color=255,255,255&fit=bounds&height=795&width=530&canvas=530:795',
     price: 8.4,
     category: 'clothes',
-    quantity: 1,
-    quantityPrice: 8.4
+    isAddedToCart: true,
+    quantity: 5,
+    quantityPrice:8.4,
   ),
   const ProductItemModel(
     id: '5',
@@ -101,8 +118,9 @@ List<ProductItemModel> dummyProducts = [
         'https://www.seasaltcornwall.com/media/catalog/product/b/_/b_wm31098_29875_2.jpg?optimize=medium&bg-color=255,255,255&fit=bounds&height=795&width=530&canvas=530:795',
     price: 8.5,
     category: 'clothes',
-    quantity: 1,
-    quantityPrice: 8.5
+    quantityPrice:8.5,
+    quantity: 2,
+     isAddedToCart: true,
   ),
   const ProductItemModel(
     id: '6',
@@ -111,7 +129,8 @@ List<ProductItemModel> dummyProducts = [
         'https://www.seasaltcornwall.com/media/catalog/product/b/_/b_wm31313_29627_2.jpg?optimize=medium&bg-color=255,255,255&fit=bounds&height=795&width=530&canvas=530:795',
     price: 8.6,
     category: 'clothes',
-    quantity: 1,
-    quantityPrice: 8.6
+    quantityPrice:8.6,
+    quantity: 8,
+     isAddedToCart: true,
   ),
 ];

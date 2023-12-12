@@ -4,10 +4,10 @@ import 'package:ecommerce/view_models/search_cubit/search_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class ListPopulerSearch extends StatelessWidget {
+class PopulerSearchItem extends StatelessWidget {
   final int index;
-  final cubit;
-  const ListPopulerSearch({super.key, required this.index, required this.cubit});
+  final SearchCubit cubit;
+  const PopulerSearchItem({super.key, required this.index, required this.cubit});
 
   @override
   Widget build(BuildContext context) {
@@ -113,30 +113,3 @@ class ListPopulerSearch extends StatelessWidget {
     );
   }
 }
-
-// ListTile(
-                //   leading: ClipRRect(
-                //     borderRadius: BorderRadius.circular(10),
-                //     child: CachedNetworkImage(
-                //       width: 90,
-                //       fit: BoxFit.fill,
-                //       imageUrl: 'https://www.seasaltcornwall.com/media/catalog/product/b/_/b_wm23525_29623_2.jpg?optimize=medium&bg-color=255,255,255&fit=bounds&height=795&width=530&canvas=530:795',
-                //       placeholder: (context, url) => const Center(
-                //         child: CircularProgressIndicator.adaptive(),
-                //       ),
-                //       errorWidget: (context, url, error) =>
-                //           const Icon(Icons.error),
-                //     ),
-                //   ),
-                //   title: const Text("Lunilo Hels Jachet", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),),
-                //   subtitle: const Text("1,6k Search today"),
-                //   trailing: ClipRRect(
-                //     borderRadius: BorderRadius.circular(20),
-                //     child: Container(
-                //       color: Colors.redAccent,
-                //       height: 30,
-                //       width: 50,
-                //       child: Center(child: Text('Hot', style: TextStyle(color: Colors.red, fontSize: 15),))
-                //     ),
-                //   ),
-                // )

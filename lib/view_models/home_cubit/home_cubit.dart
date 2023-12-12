@@ -10,14 +10,26 @@ class HomeCubit extends Cubit<HomeState> {
 
   void getHomeData() {
     emit(HomeLoading());
-    Future.delayed(const Duration(seconds: 2), () {
+    Future.delayed(const Duration(seconds: 1), () {
       emit(
         HomeLoaded(
           products: dummyProducts,
           carouselItems: dummyCarouselItems,
-          categoryItems: categoryItems,
+          categoryItems: listOfCategorys,
         ),
       );
     });
+  }
+  bool changeFavorite(String prodcutId){
+    int index = dummyProducts.indexWhere((element) => element.id == prodcutId,);
+    dummyProducts[index] = dummyProducts[index].copyWith(isFavorite: !dummyProducts[index].isFavorite);
+    emit(
+      HomeLoaded(
+        products: dummyProducts,
+        carouselItems: dummyCarouselItems,
+        categoryItems: listOfCategorys,
+      ),
+    );
+    return dummyProducts[index].isFavorite;
   }
 }

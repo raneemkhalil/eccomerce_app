@@ -23,8 +23,3 @@ final class ProductDetailsError extends ProductDetailsState {
 
   const ProductDetailsError({required this.message});
 }
-
-final class ProductQuantity extends ProductDetailsState {
-  final int quantity;
-  const ProductQuantity({required this.quantity});
-}

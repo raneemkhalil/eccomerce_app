@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:ecommerce/utils/app_routes.dart';
 import 'package:ecommerce/view_models/home_cubit/home_cubit.dart';
+import 'package:ecommerce/view_models/product_cubit/product_details_cubit.dart';
 import 'package:ecommerce/views/widgets/product_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -11,8 +12,12 @@ class HomeTabView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final cubit = BlocProvider.of<HomeCubit>(context);
     return BlocBuilder<HomeCubit, HomeState>(
-      bloc: BlocProvider.of<HomeCubit>(context),
+      buildWhen: (previous, current){
+        return current is! ProductDetailsLoaded;
+      },
+      bloc: cubit,
       builder: (context, state) {
         if (state is HomeLoading) {
           return const Center(
@@ -78,14 +83,15 @@ class HomeTabView extends StatelessWidget {
                     childAspectRatio: .9,
                   ),
                   itemBuilder: (context, index) => InkWell(
-                    onTap: () {
-                      Navigator.of(context, rootNavigator: true).pushNamed(
+                    onTap: () async {
+                      await Navigator.of(context, rootNavigator: true).pushNamed(
                         AppRoutes.productDetails,
                         arguments: index,
                       );
+                      cubit.getHomeData();
                     },
                     child: ProductItem(
-                      productItem: state.products[index],
+                      productItem: state.products[index], cubit: cubit,
                     ),
                   ),
                 ),
