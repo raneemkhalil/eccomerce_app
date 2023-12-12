@@ -132,19 +132,26 @@ class CartItemWidget extends StatelessWidget {
                 builder: (context, state) {
                   if(state is QuantityCounterLoaded){
                     return Text(
-                      '\$${productItem.price * state.value}',
+                      '\$${(productItem.price * state.value).toStringAsFixed(2)}',
                       style: Theme.of(context).textTheme.titleLarge!.copyWith(
                         fontWeight: FontWeight.w600,
                       ),
                     );
                   }
-                  else {
+                  else if(state is CartLoaded) {
+                    double price = productItem.price;
+                    int quantity = state.cartItems.firstWhere(
+                                (item) => item.id == productItem.id,
+                              ).quantity;
                     return Text(
-                      '\$${productItem.price}',
+                      '\$${(price * quantity).toStringAsFixed(2)}',
                       style: Theme.of(context).textTheme.titleLarge!.copyWith(
                         fontWeight: FontWeight.w600,
                       )
                     );
+                  }
+                  else {
+                    return const SizedBox.shrink();
                   }
                 },
               )

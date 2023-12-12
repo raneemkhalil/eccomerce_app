@@ -37,29 +37,31 @@ class ProductItem extends StatelessWidget {
               ),
             ),
             Positioned(
-              width: 30,
-              height: 30,
-              top: 8.0,
-              right: 8.0,
-              child: DecoratedBox(
-                decoration: const BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: Colors.white60,
-                ),
-                child: IconButton(
-                  color: AppColors.primaryColor,
-                  onPressed: () {
-                    if (cubit is FavoriteCubit) {
-                      cubit.removeFromFavorite(productItem.id);
-                    }
-                    else if (cubit is HomeCubit) {
-                      cubit.changeFavorite(productItem.id);
-                    }
-                    else {
-                      cubit.close();
-                    }
-                  },
-                  icon: productItem.isFavorite ? const Icon(Icons.favorite) : const Icon(Icons.favorite_border),
+              top: 6.0,
+              right: 6.0,
+              child: SizedBox(
+                height: 40,
+                width: 40,
+                child: DecoratedBox(
+                  decoration: const BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: Colors.white60,
+                  ),
+                  child: IconButton(
+                    color: AppColors.primaryColor,
+                    onPressed: () {
+                      if (cubit is FavoriteCubit) {
+                        cubit.removeFromFavorite(productItem.id);
+                      }
+                      else if (cubit is HomeCubit) {
+                        cubit.changeFavorite(productItem.id);
+                      }
+                      else {
+                        cubit.close();
+                      }
+                    },
+                    icon: productItem.isFavorite ? const Icon(Icons.favorite) : const Icon(Icons.favorite_border),
+                  ),
                 ),
               ),
             ),
