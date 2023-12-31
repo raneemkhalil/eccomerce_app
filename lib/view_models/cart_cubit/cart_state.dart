@@ -14,8 +14,9 @@ final class QuantityCounterLoaded extends CartState {
 
 final class CartLoaded extends CartState {
   final List<ProductItemModel> cartItems;
+  final double subTotal;
 
-  CartLoaded({required this.cartItems});
+  CartLoaded({required this.cartItems, required this.subTotal});
 }
 
 final class CartError extends CartState {

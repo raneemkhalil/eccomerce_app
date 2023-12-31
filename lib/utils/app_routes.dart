@@ -5,4 +5,6 @@ class AppRoutes {
   static const String myOrder = '/orders';
   static const String myCart = '/carts';
   static const String myFavorites = '/favorites';
+  static const String payment = '/payment';
+  static const String locationPage = '/location-page';
 }
