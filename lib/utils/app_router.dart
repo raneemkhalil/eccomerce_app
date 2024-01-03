@@ -1,7 +1,5 @@
-import 'package:ecommerce/models/location_model.dart';
 import 'package:ecommerce/utils/app_routes.dart';
 import 'package:ecommerce/view_models/cart_cubit/cart_cubit.dart';
-import 'package:ecommerce/view_models/location_cubit/location_cubit.dart';
 import 'package:ecommerce/view_models/payment_cubit/payment_cubit.dart';
 import 'package:ecommerce/view_models/product_cubit/product_details_cubit.dart';
 import 'package:ecommerce/view_models/search_cubit/search_cubit.dart';
@@ -87,8 +85,8 @@ class AppRouter {
         return MaterialPageRoute(
           builder: (_) => BlocProvider(
             create: (context){
-              final cubit = LocationCubit();
-              cubit.getLocationsList();
+              final cubit = PaymentCubit();
+              cubit.getPaymentViewData();
               return cubit;
             },
             child: const LocationPage(),

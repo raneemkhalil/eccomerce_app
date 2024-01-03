@@ -9,12 +9,12 @@ final class PaymentLoading extends PaymentState {}
 final class PaymentLoaded extends PaymentState {
   final List<ProductItemModel> cartItems;
   final double total;
-  final LocationModel? selectedLocation;
+  final List<LocationModel> locations;
 
   PaymentLoaded ({
     required this.cartItems,
     required this.total,
-    this.selectedLocation
+    required this.locations
   });
 }
 

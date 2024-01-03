@@ -1,8 +1,8 @@
-import 'package:ecommerce/models/location_model.dart';
-import 'package:ecommerce/view_models/location_cubit/location_cubit.dart';
 import 'package:ecommerce/views/widgets/location_item_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:ecommerce/view_models/payment_cubit/payment_cubit.dart';
+
 
 class LocationPage extends StatefulWidget {
   const LocationPage({super.key});
@@ -14,7 +14,7 @@ class LocationPage extends StatefulWidget {
 class _LocationPageState extends State<LocationPage> {
   @override
   Widget build(BuildContext context) {
-    final cubit = BlocProvider.of<LocationCubit>(context);
+    final cubit = BlocProvider.of<PaymentCubit>(context);
     return Scaffold(
       appBar: AppBar(
         title: const Text('Address'),
@@ -83,34 +83,34 @@ class _LocationPageState extends State<LocationPage> {
               const SizedBox(
                 height: 12.0,
               ),
-              BlocBuilder<LocationCubit, LocationState>(
+              BlocBuilder<PaymentCubit, PaymentState>(
                 bloc: cubit,
-                buildWhen: (previous, current) => current is LocationLoaded,
+                buildWhen: (previous, current) => current is PaymentLoaded,
                 builder: (context, state) {
-                  if(state is LocationLoading){
+                  if(state is PaymentLoading){
+                    cubit.unSetLocateWithPay();
                     return const Padding(
                       padding: EdgeInsets.symmetric(horizontal: 170.0, vertical: 18),
                       child: CircularProgressIndicator.adaptive(),
                     );
                   }
-                  else if(state is LocationLoaded){
+                  else if(state is PaymentLoaded){
                     return ListView.builder(
                       shrinkWrap: true,
                       physics: const NeverScrollableScrollPhysics(),
                       itemCount: state.locations.length,
                       itemBuilder: (context, index) {
-                        return BlocProvider(
-                          create: (context){
-                            final cubit = LocationCubit();
-                            cubit.unselectLocation(index);
-                            return cubit;
+                        return InkWell(
+                          child: LocationItemWidget(index:index),
+                          onTap: () {
+                            cubit.setLocateWithPay(index);
+                            Navigator.of(context).pop();
                           },
-                          child: LocationItemWidget(index: index,)
                         );
                       },
                     );
                   }
-                  else if(state is LocationError){
+                  else if(state is PaymentError){
                     return Text(state.message);
                   }
                   else {

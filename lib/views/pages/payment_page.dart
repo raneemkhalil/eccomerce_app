@@ -7,8 +7,14 @@ import 'package:ecommerce/views/widgets/product_item_payment_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class PaymentPage extends StatelessWidget {
+class PaymentPage extends StatefulWidget {
   const PaymentPage({super.key});
+
+  @override
+  State<PaymentPage> createState() => _PaymentPageState();
+}
+
+class _PaymentPageState extends State<PaymentPage> {
 
   @override
   Widget build(BuildContext context) {
@@ -27,6 +33,7 @@ class PaymentPage extends StatelessWidget {
           }
           else if (state is PaymentLoaded){
             final size = MediaQuery.of(context).size;
+            final int index = state.locations.indexWhere((element) => element.isSelected == true);
             return SafeArea(
               child: SingleChildScrollView(
                 child: Padding(
@@ -39,14 +46,28 @@ class PaymentPage extends StatelessWidget {
                         onTap: (){}
                       ),
                       const SizedBox (height: 8.0),
-                      if(state.selectedLocation != null)
-                        ClickableBoxWidget(label: state.selectedLocation!.cityName, onTap: () => Navigator.of(context).pushNamed(AppRoutes.locationPage),)
+                      if(index != -1)
+                        ClickableBoxWidget(
+                          title: state.locations[index].cityName,
+                          imgUrl: state.locations[index].imgUrl,
+                          subTitle: '${state.locations[index].cityName}, ${state.locations[index].countryName}',
+                          onTap: () async {
+                            await Navigator.of(context, rootNavigator: true).pushNamed(AppRoutes.locationPage);
+                            if (!mounted) return;
+                            setState(() {
+                              
+                            });
+                          },
+                        )
                       else
                         ClickableBoxWidget(
-                          label: "Add Address", 
+                          title: "Add Address", 
                           onTap: () async {
-                            await Navigator.of(context).pushNamed(AppRoutes.locationPage);
-                            cubit.getLocateWithPay(state.selectedLocation!);
+                            await Navigator.of(context, rootNavigator: true).pushNamed(AppRoutes.locationPage);
+                            if (!mounted) return;
+                            setState(() {
+                              
+                            });
                           },
                         ),
                       const SizedBox (height: 10.0),
@@ -71,7 +92,7 @@ class PaymentPage extends StatelessWidget {
                         title: 'Payment Method'
                       ),
                       const SizedBox(height: 20.0),
-                      const ClickableBoxWidget(label: 'Add Payment Method'),
+                      const ClickableBoxWidget(title: 'Add Payment Method'),
                       const SizedBox(height: 10.0),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,

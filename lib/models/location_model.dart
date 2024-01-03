@@ -1,12 +1,32 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 class LocationModel {
   final String cityName;
   final String countryName;
   final String imgUrl;
+  final bool isSelected;
 
   LocationModel(
-      {required this.cityName,
+    {
+      required this.cityName,
       required this.countryName,
-      required this.imgUrl});
+      required this.imgUrl,
+      this.isSelected=false
+    });
+  
+
+  LocationModel copyWith({
+    String? cityName,
+    String? countryName,
+    String? imgUrl,
+    bool? isSelected,
+  }) {
+    return LocationModel(
+      cityName: cityName ?? this.cityName,
+      countryName: countryName ?? this.countryName,
+      imgUrl: imgUrl ?? this.imgUrl,
+      isSelected: isSelected ?? this.isSelected,
+    );
+  }
 }
 
 List<LocationModel> listOfLocations = [
