@@ -1,3 +1,4 @@
+import 'package:ecommerce/models/location_model.dart';
 import 'package:ecommerce/views/widgets/location_item_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -102,7 +103,13 @@ class _LocationPageState extends State<LocationPage> {
                         return InkWell(
                           child: LocationItemWidget(index:index),
                           onTap: () {
-                            cubit.setLocateWithPay(index);
+                            int selectedIndex = listOfLocations.indexWhere((element) => element.isSelected);
+                            if(index > -1 && index != selectedIndex){
+                              if(selectedIndex > -1 ){
+                                cubit.unSetLocateWithPay(selectedIndex);
+                              }
+                              cubit.setLocateWithPay(index);
+                            }
                             Navigator.of(context).pop();
                           },
                         );
