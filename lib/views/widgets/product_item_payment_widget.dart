@@ -24,14 +24,14 @@ class ProductItemPaymentWidget extends StatelessWidget {
           const SizedBox(width: 8.0),
           Expanded(
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children:
               [
                 Text(item.name, style: Theme.of(context).textTheme.headlineSmall),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween, 
                   children: [
-                    if (item. size == null)
+                    if (item.size == null)
                       Text(
                         'No Size',
                         style: Theme.of(context).textTheme.titleMedium!.copyWith(
