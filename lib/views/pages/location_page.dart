@@ -88,7 +88,6 @@ class _LocationPageState extends State<LocationPage> {
                 buildWhen: (previous, current) => current is PaymentLoaded,
                 builder: (context, state) {
                   if(state is PaymentLoading){
-                    cubit.unSetLocateWithPay();
                     return const Padding(
                       padding: EdgeInsets.symmetric(horizontal: 170.0, vertical: 18),
                       child: CircularProgressIndicator.adaptive(),
