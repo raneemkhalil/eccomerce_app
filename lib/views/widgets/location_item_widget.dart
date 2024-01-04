@@ -20,7 +20,6 @@ class _LocationItemWidgetState extends State<LocationItemWidget> {
       bloc: cubit,
       buildWhen: (previous, current) => current is PaymentLoaded,
       builder: (context, state) {
-        print(state);
         if (state is PaymentLoaded) {
           return Padding(
             padding: const EdgeInsetsDirectional.symmetric(

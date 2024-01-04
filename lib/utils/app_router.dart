@@ -10,6 +10,7 @@ import 'package:ecommerce/views/pages/my_order.dart';
 import 'package:ecommerce/views/pages/payment_page.dart';
 import 'package:ecommerce/views/pages/product_details.dart';
 import 'package:ecommerce/views/pages/search_page.dart';
+import 'package:ecommerce/views/widgets/add_payment_card_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -69,7 +70,6 @@ class AppRouter {
           settings: settings,
         );
       case AppRoutes.payment:
-        // final LocationModel location = settings.arguments as LocationModel;
         return MaterialPageRoute(
           builder: (_) => BlocProvider(
             create: (context) {
@@ -79,6 +79,11 @@ class AppRouter {
             },
             child: const PaymentPage(),
           ),
+          settings: settings,
+        );
+      case AppRoutes.addPaymentCard:
+        return MaterialPageRoute(
+          builder: (_) => const AddPaymentCardWidget(), 
           settings: settings,
         );
       case AppRoutes.locationPage:

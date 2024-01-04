@@ -7,4 +7,5 @@ class AppRoutes {
   static const String myFavorites = '/favorites';
   static const String payment = '/payment';
   static const String locationPage = '/location-page';
+  static const String addPaymentCard = '/add-payment';
 }
