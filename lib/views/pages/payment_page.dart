@@ -32,7 +32,6 @@ class _PaymentPageState extends State<PaymentPage> {
                 return const Center(
                     child: CircularProgressIndicator.adaptive());
               } else if (state is PaymentLoaded) {
-                final size = MediaQuery.of(context).size;
                 final int index = state.locations
                     .indexWhere((element) => element.isSelected == true);
                 return SafeArea(
