@@ -52,7 +52,7 @@ class CartPage extends StatelessWidget {
                     child: SizedBox(
                       width: double.infinity,
                       child: ElevatedButton(
-                        onPressed: () => Navigator.of(context, rootNavigator: true).pushNamed(AppRoutes.payment),
+                        onPressed: () => Navigator.of(context, rootNavigator: true).pushNamed(AppRoutes.paymentPage),
                         child: const Text('Check Out')
                       ),
                     ),

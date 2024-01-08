@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+// ignore: constant_identifier_names
 enum Size { S, M, L, XL }
 
 class ProductItemModel {

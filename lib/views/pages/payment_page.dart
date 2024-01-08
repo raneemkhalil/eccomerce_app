@@ -26,7 +26,10 @@ class _PaymentPageState extends State<PaymentPage> {
         ),
         body: BlocBuilder<PaymentCubit, PaymentState>(
             bloc: cubit,
-            buildWhen: (previous, current) => current is PaymentLoaded || current is PaymentLoading || current is PaymentError,
+            buildWhen: (previous, current) =>
+                current is PaymentLoaded ||
+                current is PaymentLoading ||
+                current is PaymentError,
             builder: (context, state) {
               if (state is PaymentLoading) {
                 return const Center(
@@ -87,14 +90,14 @@ class _PaymentPageState extends State<PaymentPage> {
                       ClickableBoxWidget(
                         title: 'Add Payment Method',
                         onTap: () => showModalBottomSheet(
-                            context: context,
-                            isScrollControlled: true,
-                            useSafeArea: true,
-                            builder: (ctx) => BlocProvider.value(
-                              value: cubit,
-                              child: const PaymentMethodWidget(),
-                            ),
-                        )
+                          isScrollControlled: true,
+                          useSafeArea: true,
+                          context: context,
+                          builder: (ctx) => BlocProvider.value(
+                            value: BlocProvider.of<PaymentCubit>(context),
+                            child: const PaymentMethodWidget(),
+                          ),
+                        ),
                       ),
                       const SizedBox(height: 10.0),
                       Row(
@@ -117,16 +120,17 @@ class _PaymentPageState extends State<PaymentPage> {
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 16.0),
                         child: SizedBox(
-                            width: double.infinity,
-                            height: 50,
-                            child: ElevatedButton(
-                              onPressed: () {},
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: Theme.of(context).primaryColor,
-                                foregroundColor: AppColors.white,
-                              ),
-                              child: const Text('Checkout Now'),
-                            )),
+                          width: double.infinity,
+                          height: 50,
+                          child: ElevatedButton(
+                            onPressed: () {},
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Theme.of(context).primaryColor,
+                              foregroundColor: AppColors.white,
+                            ),
+                            child: const Text('Checkout Now'),
+                          ),
+                        ),
                       ),
                       const SizedBox(
                         height: 34.0,

@@ -137,7 +137,7 @@ class _CustomBottomNavbarState extends State<CustomBottomNavbar> {
               icon: const Icon(Icons.shopping_bag),
               label: const Text('My Oreders'),
               onPressed: () {
-                Navigator.of(context).pushNamed(AppRoutes.myOrder);
+                Navigator.of(context).pushNamed(AppRoutes.myOrders);
               },
             ),
           if (_controller.index == 2)
@@ -145,7 +145,7 @@ class _CustomBottomNavbarState extends State<CustomBottomNavbar> {
               icon: const Icon(Icons.notifications_active_outlined),
               label: const Text(''),
               onPressed: () {
-                Navigator.of(context).pushNamed(AppRoutes.myFavorites);
+                Navigator.of(context).pushNamed(AppRoutes.myfavourites);
               },
             ),
         ],

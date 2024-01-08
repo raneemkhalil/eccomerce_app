@@ -2,7 +2,7 @@ import 'package:ecommerce/models/payment_method_model.dart';
 import 'package:ecommerce/utils/colors_app.dart';
 import 'package:ecommerce/view_models/payment_cubit/payment_cubit.dart';
 import 'package:ecommerce/views/widgets/add_payment_card_widget.dart';
-import 'package:ecommerce/views/widgets/payment_method_item%20_widget.dart';
+import 'package:ecommerce/views/widgets/payment_method_item_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

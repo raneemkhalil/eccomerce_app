@@ -274,7 +274,7 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                             height: 55,
                             width: 180,
                             child: ElevatedButton(
-                              onPressed: () => Navigator.of(context).pushNamed(AppRoutes.myOrder),
+                              onPressed: () => Navigator.of(context).pushNamed(AppRoutes.myOrders),
                               style: ElevatedButton.styleFrom(
                                 backgroundColor: Theme.of(context).primaryColor,
                                 foregroundColor: Colors.white,

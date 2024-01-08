@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 
 class ProductItem extends StatelessWidget {
   final ProductItemModel productItem;
+  // ignore: prefer_typing_uninitialized_variables
   final cubit;
   const ProductItem(
       {super.key, required this.productItem, required this.cubit});

@@ -6,11 +6,12 @@ import 'package:ecommerce/view_models/search_cubit/search_cubit.dart';
 import 'package:ecommerce/views/pages/cart_page.dart';
 import 'package:ecommerce/views/pages/custom_bottom_navbar.dart';
 import 'package:ecommerce/views/pages/location_page.dart';
+import 'package:ecommerce/views/pages/login_page.dart';
 import 'package:ecommerce/views/pages/my_order.dart';
 import 'package:ecommerce/views/pages/payment_page.dart';
 import 'package:ecommerce/views/pages/product_details.dart';
+import 'package:ecommerce/views/pages/register_account_page.dart';
 import 'package:ecommerce/views/pages/search_page.dart';
-import 'package:ecommerce/views/widgets/add_payment_card_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -37,6 +38,11 @@ class AppRouter {
           builder: (_) => const CustomBottomNavbar(),
           settings: settings,
         );
+      case AppRoutes.login:
+        return MaterialPageRoute(
+          builder: (_) => const LoginPage(),
+          settings: settings,
+        );
 
       case AppRoutes.searchPage:
         return MaterialPageRoute(
@@ -51,7 +57,7 @@ class AppRouter {
           settings: settings,
         );
 
-      case AppRoutes.myCart:
+      case AppRoutes.cartPage:
         return MaterialPageRoute(
           builder: (_) => BlocProvider(
             create: (_) {
@@ -64,12 +70,13 @@ class AppRouter {
           settings: settings,
         );
 
-      case AppRoutes.myOrder:
+      case AppRoutes.myOrders:
         return MaterialPageRoute(
           builder: (_) => const MyOrderPage(),
           settings: settings,
         );
-      case AppRoutes.payment:
+
+      case AppRoutes.paymentPage:
         return MaterialPageRoute(
           builder: (_) => BlocProvider(
             create: (context) {
@@ -81,21 +88,23 @@ class AppRouter {
           ),
           settings: settings,
         );
-      case AppRoutes.addPaymentCard:
-        return MaterialPageRoute(
-          builder: (_) => const AddPaymentCardWidget(), 
-          settings: settings,
-        );
+
       case AppRoutes.locationPage:
         return MaterialPageRoute(
           builder: (_) => BlocProvider(
-            create: (context){
+            create: (context) {
               final cubit = PaymentCubit();
               cubit.getPaymentViewData();
               return cubit;
             },
             child: const LocationPage(),
           ),
+          settings: settings,
+        );
+
+      case AppRoutes.registerAccountPage:
+        return MaterialPageRoute(
+          builder: (_) => const RegisterAccountPage(),
           settings: settings,
         );
       default:
